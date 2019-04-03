@@ -66,10 +66,10 @@ export default {
     }
   },
   methods: {
-    statusCheck(status, index='') {
+    statusCheck(status, index='Oooops') {
       if (status < 200 && status >= 400) {
       // if (true) {
-        alert(`${index>=0 ? index+1 : 'Oooops'} request crashed`);
+        alert(`${index>=0 ? index+1 : index} request crashed`);
         throw 'crashed';
       }
     }

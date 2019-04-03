@@ -83,6 +83,7 @@ export default {
       .then(resp => {
         this.statusCheck(resp.status);
         self.first = resp;
+        // return p2; можна засунути сюди і тоді ремувнути наступний .then()
       })
       .then(() => {
         return p2;
@@ -93,31 +94,31 @@ export default {
       })
       .catch(err => {
         console.log(err);
-      })
+      });
     /* One by One  ---- end */
 
   /* Promise.all  ---- start */
-    // Promise.all([p1, p2])
-    //   .then(resp => {
-    //     for (const index of resp.keys()) {
-    //       this.statusCheck(resp[index].status, index);
-    //     }
-    //     [this.first, this.second] = resp;
-    //   })
-    //   .catch(err => {
-    //     console.log('Crashed ------>', err);
-    //   });
+    Promise.all([p1, p2])
+      .then(resp => {
+        for (const index of resp.keys()) {
+          this.statusCheck(resp[index].status, index);
+        }
+        [this.first, this.second] = resp;
+      })
+      .catch(err => {
+        console.log('Crashed ------>', err);
+      });
   /* Promise.all  ---- end */
 
   /* Promise.race  ---- start */
-    // Promise.race([p1, p2])
-    //   .then(resp => {
-    //     this.statusCheck(resp.status);
-    //     this.oneOf = resp.data;
-    //   })
-    //   .catch(err => {
-    //     console.log('Crashed ------>', err);
-    //   });
+    Promise.race([p1, p2])
+      .then(resp => {
+        this.statusCheck(resp.status);
+        this.oneOf = resp.data;
+      })
+      .catch(err => {
+        console.log('Crashed ------>', err);
+      });
   /* Promise.all  ---- end */
 
   }
